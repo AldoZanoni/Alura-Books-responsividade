@@ -1,0 +1,190 @@
+.cabeçalho__menu-hamburguer {
+    width: 48px;
+    height: 48px;
+    background-image: url(../Assets/Menu.svg);
+    display: inline-block;
+    /* inline-block pra permitir o ajuste da altura e largura, se fosse só inline, não permitiria */
+    background-repeat: no-repeat;
+    background-position: center;
+    /* a imagem de background vai ficar repetindo pra completar o background, então tem que mandar parar, e posicionar no centro. */
+}
+
+.container__botao:checked ~ .container__rotulo > .cabeçalho__menu-hamburguer {
+/* o ~ é um combinador. Ele diz que quando acontecer o que vem antes, buscar a calss quevem depois. e o ">" é pra ir entrando dentro das classes como dse fossem diretórios */
+    background-image: url("../Assets/Menu\ Aberto.png");
+}
+
+.container__botao:checked ~ .container__rotulo {
+    background: var(--azul-degrade);
+}
+
+
+.cabeçalho {
+    background-color: var(--branco);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* como o cabeçalho foi divido em duas divs, elas são os blocos que ficaram no formato flex. Com isso ficam disponíveis várias prorpiedades de flex box. Tem que pesquisar quando for usar. */
+    position: relative;
+    /* permite abre opções de movimentação nas quatro direções, mas nesse caso foi usado apenas para que o position absolute no lista-menu funcione, pois o absolute só funciona em relação ao pai se ele não for static */
+}
+
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.container__imagem {
+    padding: 0.5em;
+}
+
+.lista-menu {
+    display: none;
+    /* some com o elemento e faz com que ele não ocupe espaço nenhum */
+    position: absolute;
+    /* aqui vamos usar o absolute pois ele se posiciona em relação ao elemento pai, já que queremos que o menu desça logo abaixo do cabeçalho, mas pra isso o cabeçalho não pode ser static, então foi colocado relative. */
+    top: 100%;
+    /* esse moveu a lista para baixo, significa que o topo deve estar 100% depois do cabeçalho*/
+    width: 60vw;
+    /* vw é viewpor width, ficou tipo 60% da largura da tela que ele está */
+}
+
+.container__botao:checked~.lista-menu {
+    display: block;
+}
+/* quando o input do container__botao estiver checked, a lista-menu vai fazer o display: block, que é apresentar a lista em formato de bloco. */
+
+.container__botao {
+    display: none;
+}
+
+.lista-menu__titulo,
+.lista-menu__item {
+    padding: 1em;
+    background-color: var(--branco);
+}
+
+.lista-menu__titulo {
+    color: var(--laranja);
+    font-weight: 700;
+}
+
+.lista-menu__link {
+    background: var(--azul-degrade);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    /* copiei e colei do 'Teste' do figma. não sei como que eu ia saber que tinha que copiar só isso*/
+    text-transform: uppercase;
+
+}
+
+.container__titulo {
+    display: none;
+    /* esse display none é pra esse container__titulo desaparecer, pois eu quero ele apenas no media quary */
+}
+
+.opções {
+    display: none;
+}
+
+.container__texto {
+    display: none;
+}
+
+/* Esse é o media quary. é aqui que eu coloco os estilo para quando a página for aberta em outro dispositivos. O min 1024 quer dizer que a partir do 1024 vai seguir esses estilos. */
+@media screen and (min-width: 1024px) {
+    .container__titulo, .container__titulo--negrito {
+        font-family: var(--fonte-secundaria);
+        font-size: 30px;
+    }
+
+    .container__titulo {
+        font-weight: 400;
+        display: block;
+        /* esse display block é pra aparecer denovo, pois eu fiz ele desaparecer la em cima. Assim ele aparece só quendo estiver usando media quary */
+    }
+
+    .container__titulo--negrito {
+        font-weight: 700;
+    }
+
+    .opções {
+        display: flex;
+    }
+
+    .opções__item {
+        padding: 0 1em;
+        text-transform: uppercase;
+    }
+
+    .opções__link {
+        text-decoration: none;
+        color: var(--preto);
+    }
+
+    .container__imagem-transparente {
+        display: none;
+    }
+    /* essa classe container__imagem-trasparente foi criada la no index apenas para poder colocar aqui no quary com display:none, assim ela não aparece quando aumentar a tela. */
+    
+    .cabeçalho__menu-hamburguer {
+        display: none;
+    }
+
+    .opções__botão:checked~.lista-menu {
+        display:block;
+        width: auto;
+    }
+
+    .opções__botão {
+        display: none;
+    }
+
+    .opções__botão:checked ~ .opções__rotulo > .opções__item {
+        background: var(--azul-degrade);
+        color: var(--branco);
+        
+    }
+
+    .opções__item {
+        padding: 2em 1em;
+    }
+
+    .lista-menu__item:hover {
+        background: var(--azul-degrade);
+    }
+
+    .lista-menu__item:hover>.lista-menu__link {
+        -webkit-text-fill-color: var(--branco);
+        text-decoration: none;
+    }
+
+
+}
+
+@media screen and (min-width: 1728px) {
+    .container__link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--preto);
+    }
+    
+    .container__texto {
+        display: block;
+    }
+
+
+    .cabeçalho {
+        padding: 0 2em;
+    }
+
+
+
+    .opções {
+        margin-right: auto;
+        /*  esse auto, quando em flexbox, preenche todo o espaço vazio do elemento, é confuso ainda, mas é muito útil */
+    }
+}
